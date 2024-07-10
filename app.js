@@ -34,41 +34,50 @@ const author = document.getElementById("author");
 const job = document.getElementById("job");
 const info = document.getElementById("info");
 
-let count = 0
+let count = 0;
 
 const btns = document.querySelectorAll(".button");
 
 btns.forEach(function (button) {
     button.addEventListener("click", function (e) {
         const buttype = e.currentTarget.classList
-        if (buttype.contains('prev') && count <= reviews.length) {
-            count--;
-            ShowPerson();
-        }
-        if (buttype.contains('next')) {
-            count++;
-            ShowPerson();
-        }
-        else {
-            count = RandomNumber();
-            ShowPerson();
+        if (0 <= count <= reviews.length) {
+            if (buttype.contains('prev')) {
+                count--;
+                ShowPerson();
+            }
+            if (buttype.contains('next')) {
+                count++;
+                ShowPerson();
+            }
+            else {
+                count = RandomNumber();
+               // ShowPerson();
+                console.log(count);
+            }
         }
 
-    })
+    });
 
 });
 
 window.addEventListener('DOMContentLoaded', function () {
     const person = reviews[count];
     img.src = person.img;
-})
+    author.textContent = person.name;
+    job.textContent = person.job;
+    info.textContent = person.text;
+});
 
 
-function ShowPerson(){
+function ShowPerson() {
     const person = reviews[count];
     img.src = person.img;
+    author.textContent = person.name;
+    job.textContent = person.job;
+    info.textContent = person.text;
 
-}
+};
 
 
 function RandomNumber() {
