@@ -34,32 +34,11 @@ const author = document.getElementById("author");
 const job = document.getElementById("job");
 const info = document.getElementById("info");
 
+const prev = document.querySelector('.prev');
+const next = document.querySelector('.next');
+const random = document.querySelector('.random');
+
 let count = 0;
-
-const btns = document.querySelectorAll(".button");
-
-btns.forEach(function (button) {
-    button.addEventListener("click", function (e) {
-        const buttype = e.currentTarget.classList
-        if (0 <= count <= reviews.length) {
-            if (buttype.contains('prev')) {
-                count--;
-                ShowPerson();
-            }
-            if (buttype.contains('next')) {
-                count++;
-                ShowPerson();
-            }
-            else {
-                count = RandomNumber();
-               // ShowPerson();
-                console.log(count);
-            }
-        }
-
-    });
-
-});
 
 window.addEventListener('DOMContentLoaded', function () {
     const person = reviews[count];
@@ -68,6 +47,29 @@ window.addEventListener('DOMContentLoaded', function () {
     job.textContent = person.job;
     info.textContent = person.text;
 });
+
+
+prev.addEventListener("click", function () {
+    count--;
+    if(count<0){
+        count=reviews.length - 1;   
+    }
+    ShowPerson();
+});
+
+next.addEventListener("click", function () {
+    count++;
+    if(count>reviews.length - 1){
+        count = 0;
+    }
+    ShowPerson();
+});
+
+random.addEventListener("click", function(){
+    count = RandomNumber();
+    ShowPerson();
+})
+
 
 
 function ShowPerson() {
@@ -81,6 +83,6 @@ function ShowPerson() {
 
 
 function RandomNumber() {
-    return Math.floor(Math.random * reviews.length);
+    return Math.floor(Math.random() * reviews.length);
 };
 
